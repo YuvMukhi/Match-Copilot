@@ -65,8 +65,14 @@ async def health_check() -> dict[str, str]:
 app.include_router(api_v1_router)
 
 # Serve built frontend in production if available
-frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if frontend_dist.is_dir():
+frontend_dist_candidates = [
+    Path(__file__).resolve().parent.parent.parent / "frontend" / "dist",
+    Path.cwd() / "frontend" / "dist",
+    Path("/app/frontend/dist"),
+]
+frontend_dist = next((p for p in frontend_dist_candidates if p.is_dir()), None)
+
+if frontend_dist and (frontend_dist / "index.html").is_file():
     app.mount("/assets", StaticFiles(directory=str(frontend_dist / "assets")), name="assets")
 
     @app.get("/{full_path:path}", include_in_schema=False)

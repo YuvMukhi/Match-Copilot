@@ -13,6 +13,48 @@ interface ChatInterfaceProps {
   currentOver: number;
 }
 
+// Lightweight, safe markdown formatter for chat bubbles
+function renderFormattedContent(text: string): React.ReactNode {
+  const lines = text.split('\n');
+  return (
+    <div className="space-y-1.5">
+      {lines.map((line, lineIdx) => {
+        if (!line.trim()) {
+          return <div key={lineIdx} className="h-1" />;
+        }
+
+        // Bullet point
+        const isBullet = line.trim().startsWith('-');
+        const contentLine = isBullet ? line.trim().substring(1).trim() : line;
+
+        // Parse **bold** parts
+        const parts = contentLine.split(/(\*\*.*?\*\*)/g);
+        const formattedParts = parts.map((part, partIdx) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return (
+              <strong key={partIdx} className="font-semibold text-slate-900">
+                {part.slice(2, -2)}
+              </strong>
+            );
+          }
+          return part;
+        });
+
+        if (isBullet) {
+          return (
+            <div key={lineIdx} className="flex items-start gap-1.5 pl-1">
+              <span className="text-emerald-600 font-bold leading-none mt-1">&bull;</span>
+              <span>{formattedParts}</span>
+            </div>
+          );
+        }
+
+        return <p key={lineIdx}>{formattedParts}</p>;
+      })}
+    </div>
+  );
+}
+
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   messages,
   loading,
@@ -119,7 +161,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       : 'bg-white text-slate-800 border border-slate-200/90 rounded-tl-xs shadow-xs'
                   }`}
                 >
-                  <div className="whitespace-pre-wrap font-sans">{msg.content}</div>
+                  <div className="font-sans">
+                    {isUser ? msg.content : renderFormattedContent(msg.content)}
+                  </div>
 
                   {/* Evidence Table Panel (Explainable AI centerpiece) */}
                   {!isUser && msg.evidence && (
