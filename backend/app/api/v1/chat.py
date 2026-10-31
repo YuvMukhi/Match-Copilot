@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.core.logging import logger
+from app.core.rate_limiter import rate_limit_dependency
 from app.db.models import ChatMessage, FantasyTeam, Match
 from app.db.session import get_db
 from app.llm.client import llm_client
@@ -16,6 +17,7 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 async def chat_endpoint(
     req: ChatRequest,
     db: Session = Depends(get_db),
+    _rate_limit: None = Depends(rate_limit_dependency),
 ) -> ChatResponse:
     # Validate match and team existence
     match = db.query(Match).filter_by(id=req.match_id).first()
