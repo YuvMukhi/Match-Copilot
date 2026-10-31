@@ -34,8 +34,8 @@ export default function App(): React.JSX.Element {
   } = useChat(selectedMatchId, selectedTeamId, currentOver);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-      {/* Top Navigation & App Bar */}
+    <div className="min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-900">
+      {/* Top Navigation */}
       <Header
         teams={teams}
         selectedTeamId={selectedTeamId}
@@ -44,11 +44,11 @@ export default function App(): React.JSX.Element {
         onToggleLanguage={setLanguage}
       />
 
-      {/* Main Workspace Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
-        {/* Error Notification if backend is unreachable */}
+      {/* Main Workspace */}
+      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5">
+        {/* Error Notification */}
         {matchError && (
-          <div className="mb-4 p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center justify-between shadow-xs">
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0 text-red-600" />
               <span>{matchError}</span>
@@ -64,24 +64,21 @@ export default function App(): React.JSX.Element {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Panel: Scoreboard, Replay Slider, Fantasy Team (7 cols) */}
-          <div className="lg:col-span-7 space-y-5">
-            {/* Live Scoreboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+          {/* Left Panel: Match State & Team */}
+          <div className="space-y-4">
             <Scoreboard
               state={matchState}
               loading={matchLoading}
               teamName={teamDetail?.name ?? 'My Team'}
             />
 
-            {/* Match Moment Replay Scrub Slider */}
             <ReplaySlider
               currentOver={currentOver}
               totalOvers={matchState?.total_overs ?? 20}
               onOverChange={setCurrentOver}
             />
 
-            {/* My Fantasy Team Squad & Points Table */}
             <TeamTable
               teamDetail={teamDetail}
               matchState={matchState}
@@ -89,8 +86,8 @@ export default function App(): React.JSX.Element {
             />
           </div>
 
-          {/* Right Panel: Chat Copilot with Evidence Tables & Chips (5 cols) */}
-          <div className="lg:col-span-5 sticky top-20">
+          {/* Right Panel: Chat Copilot */}
+          <div className="sticky top-16">
             <ChatInterface
               messages={messages}
               loading={chatLoading}
@@ -104,15 +101,11 @@ export default function App(): React.JSX.Element {
         </div>
       </main>
 
-      {/* Footer with Mandatory Disclaimer */}
-      <footer className="mt-auto border-t border-slate-200 bg-white py-3 px-4 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div>
-            <strong>Match Copilot</strong> &bull; Explainable AI for Fantasy Sports
-          </div>
-          <div className="text-slate-400 font-medium">
-            Sample data. Not official Dream11 scoring.
-          </div>
+      {/* Minimal Footer */}
+      <footer className="mt-auto border-t border-slate-200/60 bg-white py-2 px-4 text-center text-[11px] text-slate-400">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <span>Match Copilot &bull; Explainable Fantasy Cricket AI</span>
+          <span>Sample data. Not official Dream11 scoring.</span>
         </div>
       </footer>
     </div>
