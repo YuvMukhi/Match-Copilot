@@ -21,15 +21,15 @@ export const Scoreboard: React.FC<ScoreboardProps> = ({ state, loading, teamName
 
   return (
     <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-xs">
-      {/* Top row: Match and Over */}
+      {/* Top Bar: Match Name & Freshness Badge */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
-        <span className="font-semibold text-slate-700">{state.match_name}</span>
-        <span className="font-medium bg-slate-100 px-2 py-0.5 rounded text-slate-600">
-          Over {state.over} of {state.total_overs}
+        <span className="font-semibold text-slate-800">{state.match_name}</span>
+        <span className="text-[11px] font-medium text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/70">
+          Updated after over {state.over}
         </span>
       </div>
 
-      {/* Main Stats: Cricket Score & Fantasy Team Points */}
+      {/* Main Score & Team Points */}
       <div className="flex items-baseline justify-between pt-1 pb-3 border-b border-slate-100">
         <div>
           <div className="flex items-baseline gap-2">
@@ -37,7 +37,7 @@ export const Scoreboard: React.FC<ScoreboardProps> = ({ state, loading, teamName
               {state.runs}/{state.wickets}
             </span>
             <span className="text-sm font-medium text-slate-500">
-              ({state.over}.0 ov)
+              ({state.over}.0 / {state.total_overs} ov)
             </span>
           </div>
           <div className="text-xs text-slate-500 mt-0.5">
@@ -56,9 +56,15 @@ export const Scoreboard: React.FC<ScoreboardProps> = ({ state, loading, teamName
         </div>
       </div>
 
-      {/* Recent Deliveries Strip */}
+      {/* Active Batters & Recent Balls */}
       <div className="pt-2.5 flex items-center justify-between text-xs">
-        <div className="text-slate-400 text-[11px] font-medium">Recent balls:</div>
+        <div className="text-slate-500 text-[11px]">
+          <span className="text-slate-400">Batting: </span>
+          <span className="font-medium text-slate-700">
+            {state.current_batters.length > 0 ? state.current_batters.join(' & ') : 'Not started'}
+          </span>
+        </div>
+
         <div className="flex items-center gap-1.5 overflow-x-auto">
           {state.recent_balls.length > 0 ? (
             state.recent_balls.map((b, idx) => {
@@ -77,14 +83,14 @@ export const Scoreboard: React.FC<ScoreboardProps> = ({ state, loading, teamName
                 <span
                   key={idx}
                   title={`${b.bowler_name} to ${b.batter_name}`}
-                  className={`w-6 h-6 flex items-center justify-center rounded-full text-[11px] shrink-0 font-mono ${style}`}
+                  className={`w-5 h-5 flex items-center justify-center rounded-full text-[10px] shrink-0 font-mono ${style}`}
                 >
                   {b.display_text}
                 </span>
               );
             })
           ) : (
-            <span className="text-slate-400 text-[11px]">No balls bowled yet</span>
+            <span className="text-slate-400 text-[10px]">No balls bowled yet</span>
           )}
         </div>
       </div>
