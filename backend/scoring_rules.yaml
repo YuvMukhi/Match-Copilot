@@ -1,0 +1,75 @@
+# Verify against official Dream11 rules; values here are illustrative.
+# Match Copilot Fantasy Scoring Rules Configuration
+
+rules_version: "2024.1"
+game_format: "T20"
+
+batting:
+  run: 1.0
+  boundary_four: 1.0
+  boundary_six: 2.0
+  half_century_bonus: 8.0
+  century_bonus: 16.0
+  thirty_run_bonus: 4.0
+  duck_penalty: -2.0  # Applies to dismissed batter with 0 runs (BAT, AR, WK)
+  strike_rate:
+    min_balls_faced: 10
+    tiers:
+      - min_rate: 170.0
+        bonus: 6.0
+      - min_rate: 150.0
+        max_rate: 170.0
+        bonus: 4.0
+      - min_rate: 130.0
+        max_rate: 150.0
+        bonus: 2.0
+      - min_rate: 60.0
+        max_rate: 70.0
+        bonus: -2.0
+      - min_rate: 50.0
+        max_rate: 59.99
+        bonus: -4.0
+      - max_rate: 49.99
+        bonus: -6.0
+
+bowling:
+  wicket_excluding_runout: 25.0
+  bowled_or_lbw_bonus: 8.0
+  three_wicket_bonus: 4.0
+  four_wicket_bonus: 8.0
+  five_wicket_bonus: 16.0
+  maiden_over: 12.0
+  economy_rate:
+    min_overs_bowled: 2.0
+    tiers:
+      - max_rate: 5.0
+        bonus: 6.0
+      - min_rate: 5.0
+        max_rate: 5.99
+        bonus: 4.0
+      - min_rate: 6.0
+        max_rate: 6.99
+        bonus: 2.0
+      - min_rate: 10.0
+        max_rate: 11.0
+        bonus: -2.0
+      - min_rate: 11.01
+        max_rate: 12.0
+        bonus: -4.0
+      - min_rate: 12.01
+        bonus: -6.0
+
+fielding:
+  catch: 8.0
+  three_catch_bonus: 4.0
+  stumping: 12.0
+  run_out_direct: 12.0
+  run_out_catcher_thrower: 6.0
+
+multipliers:
+  captain: 2.0
+  vice_captain: 1.5
+  normal: 1.0
+
+general:
+  starting_xi: 4.0
