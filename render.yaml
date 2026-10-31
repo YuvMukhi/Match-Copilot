@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: match-copilot
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: USE_MOCK_LLM
+        value: "true"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: "claude-3-5-sonnet-20241022"
+      - key: DATABASE_URL
+        value: "sqlite:///./match_copilot.db"
