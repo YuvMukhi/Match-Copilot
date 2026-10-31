@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.api.v1.router import api_v1_router
 from app.core.config import get_settings
 from app.core.logging import logger
 
@@ -60,6 +61,8 @@ async def general_exception_handler(request: Request, exc: Exception) -> JSONRes
 async def health_check() -> dict[str, str]:
     return {"status": "ok", "app": settings.app_name}
 
+
+app.include_router(api_v1_router)
 
 # Serve built frontend in production if available
 frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
