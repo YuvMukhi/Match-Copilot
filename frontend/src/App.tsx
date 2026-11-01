@@ -45,28 +45,28 @@ export default function App(): React.JSX.Element {
       />
 
       {/* Main Workspace */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         {/* Error Notification */}
         {matchError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 shrink-0 text-red-600" />
-              <span>{matchError}</span>
+          <div className="mb-5 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-800 flex items-center justify-between shadow-2xs">
+            <div className="flex items-center gap-2.5">
+              <AlertTriangle className="w-5 h-5 shrink-0 text-red-600" />
+              <span className="font-medium">{matchError}</span>
             </div>
             <button
               type="button"
               onClick={() => void refreshState()}
-              className="text-xs font-semibold px-2 py-1 bg-white hover:bg-red-100 rounded border border-red-300 transition-colors flex items-center gap-1"
+              className="text-xs sm:text-sm font-bold px-3 py-1.5 bg-white hover:bg-red-100 rounded-lg border border-red-300 transition-colors flex items-center gap-1.5 shadow-2xs"
             >
-              <RefreshCw className="w-3 h-3" />
+              <RefreshCw className="w-3.5 h-3.5" />
               Retry
             </button>
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7 items-start">
           {/* Left Panel: Match State & Team */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             <Scoreboard
               state={matchState}
               loading={matchLoading}
@@ -87,7 +87,7 @@ export default function App(): React.JSX.Element {
           </div>
 
           {/* Right Panel: Chat Copilot */}
-          <div className="sticky top-16">
+          <div className="sticky top-20">
             <ChatInterface
               messages={messages}
               loading={chatLoading}
@@ -102,10 +102,10 @@ export default function App(): React.JSX.Element {
       </main>
 
       {/* Minimal Footer */}
-      <footer className="mt-auto border-t border-slate-200/60 bg-white py-2 px-4 text-center text-[11px] text-slate-400">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span>Match Copilot &bull; Explainable Fantasy Cricket AI</span>
-          <span>Sample data. Not official Dream11 scoring.</span>
+      <footer className="mt-auto border-t border-slate-200 bg-white py-3 px-6 text-xs sm:text-sm text-slate-500">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span className="font-medium">Match Copilot &bull; Second-Screen Fantasy Live Assistant</span>
+          <span className="text-slate-400">Sample data. Not official Dream11 scoring.</span>
         </div>
       </footer>
     </div>

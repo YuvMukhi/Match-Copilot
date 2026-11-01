@@ -21,10 +21,10 @@ def service_db_session():
 
     match = Match(
         id="match_001",
-        name="Mumbai Titans vs Chennai Superstars",
-        short_name="MT vs CS",
-        team1="Mumbai Titans",
-        team2="Chennai Superstars",
+        name="MI VS CSK",
+        short_name="MI vs CSK",
+        team1="MI",
+        team2="CSK",
         venue="Wankhede Stadium, Mumbai",
         status="in_progress",
         current_innings=1,

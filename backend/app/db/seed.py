@@ -7,35 +7,35 @@ Sample data. Not official Dream11 scoring.
 from datetime import datetime, timezone
 
 from app.core.logging import logger
-from app.db.models import Delivery, FantasyTeam, FantasyTeamPlayer, Match, Player
+from app.db.models import ChatMessage, Delivery, FantasyTeam, FantasyTeamPlayer, Match, Player
 from app.db.session import Base, SessionLocal, engine
 
 PLAYERS_DATA = [
-    # Mumbai Titans (MT)
-    {"id": "p_rohit", "name": "Rohit Sharma", "team": "Mumbai Titans", "role": "BAT", "credits": 9.5},
-    {"id": "p_ishan", "name": "Ishan Kishan", "team": "Mumbai Titans", "role": "WK", "credits": 8.5},
-    {"id": "p_surya", "name": "Suryakumar Yadav", "team": "Mumbai Titans", "role": "BAT", "credits": 9.5},
-    {"id": "p_tilak", "name": "Tilak Varma", "team": "Mumbai Titans", "role": "BAT", "credits": 8.0},
-    {"id": "p_hardik", "name": "Hardik Pandya", "team": "Mumbai Titans", "role": "AR", "credits": 9.0},
-    {"id": "p_david", "name": "Tim David", "team": "Mumbai Titans", "role": "BAT", "credits": 8.0},
-    {"id": "p_shepherd", "name": "Romario Shepherd", "team": "Mumbai Titans", "role": "AR", "credits": 7.5},
-    {"id": "p_coetzee", "name": "Gerald Coetzee", "team": "Mumbai Titans", "role": "BOWL", "credits": 8.5},
-    {"id": "p_chawla", "name": "Piyush Chawla", "team": "Mumbai Titans", "role": "BOWL", "credits": 7.5},
-    {"id": "p_bumrah", "name": "Jasprit Bumrah", "team": "Mumbai Titans", "role": "BOWL", "credits": 9.5},
-    {"id": "p_thushara", "name": "Nuwan Thushara", "team": "Mumbai Titans", "role": "BOWL", "credits": 7.5},
+    # MI (Mumbai Indians)
+    {"id": "p_rohit", "name": "Rohit Sharma", "team": "MI", "role": "BAT", "credits": 9.5},
+    {"id": "p_ishan", "name": "Ishan Kishan", "team": "MI", "role": "WK", "credits": 8.5},
+    {"id": "p_surya", "name": "Suryakumar Yadav", "team": "MI", "role": "BAT", "credits": 9.5},
+    {"id": "p_tilak", "name": "Tilak Varma", "team": "MI", "role": "BAT", "credits": 8.0},
+    {"id": "p_hardik", "name": "Hardik Pandya", "team": "MI", "role": "AR", "credits": 9.0},
+    {"id": "p_david", "name": "Tim David", "team": "MI", "role": "BAT", "credits": 8.0},
+    {"id": "p_shepherd", "name": "Romario Shepherd", "team": "MI", "role": "AR", "credits": 7.5},
+    {"id": "p_coetzee", "name": "Gerald Coetzee", "team": "MI", "role": "BOWL", "credits": 8.5},
+    {"id": "p_chawla", "name": "Piyush Chawla", "team": "MI", "role": "BOWL", "credits": 7.5},
+    {"id": "p_bumrah", "name": "Jasprit Bumrah", "team": "MI", "role": "BOWL", "credits": 9.5},
+    {"id": "p_thushara", "name": "Nuwan Thushara", "team": "MI", "role": "BOWL", "credits": 7.5},
 
-    # Chennai Superstars (CS)
-    {"id": "p_ruturaj", "name": "Ruturaj Gaikwad", "team": "Chennai Superstars", "role": "BAT", "credits": 9.0},
-    {"id": "p_rachin", "name": "Rachin Ravindra", "team": "Chennai Superstars", "role": "AR", "credits": 8.5},
-    {"id": "p_rahane", "name": "Ajinkya Rahane", "team": "Chennai Superstars", "role": "BAT", "credits": 8.0},
-    {"id": "p_dube", "name": "Shivam Dube", "team": "Chennai Superstars", "role": "AR", "credits": 9.0},
-    {"id": "p_mitchell", "name": "Daryl Mitchell", "team": "Chennai Superstars", "role": "AR", "credits": 8.5},
-    {"id": "p_jadeja", "name": "Ravindra Jadeja", "team": "Chennai Superstars", "role": "AR", "credits": 9.0},
-    {"id": "p_dhoni", "name": "MS Dhoni", "team": "Chennai Superstars", "role": "WK", "credits": 8.5},
-    {"id": "p_shardul", "name": "Shardul Thakur", "team": "Chennai Superstars", "role": "BOWL", "credits": 8.0},
-    {"id": "p_deshpande", "name": "Tushar Deshpande", "team": "Chennai Superstars", "role": "BOWL", "credits": 7.5},
-    {"id": "p_mustafizur", "name": "Mustafizur Rahman", "team": "Chennai Superstars", "role": "BOWL", "credits": 8.5},
-    {"id": "p_pathirana", "name": "Matheesha Pathirana", "team": "Chennai Superstars", "role": "BOWL", "credits": 9.0},
+    # CSK (Chennai Super Kings)
+    {"id": "p_ruturaj", "name": "Ruturaj Gaikwad", "team": "CSK", "role": "BAT", "credits": 9.0},
+    {"id": "p_rachin", "name": "Rachin Ravindra", "team": "CSK", "role": "AR", "credits": 8.5},
+    {"id": "p_rahane", "name": "Ajinkya Rahane", "team": "CSK", "role": "BAT", "credits": 8.0},
+    {"id": "p_dube", "name": "Shivam Dube", "team": "CSK", "role": "AR", "credits": 9.0},
+    {"id": "p_mitchell", "name": "Daryl Mitchell", "team": "CSK", "role": "AR", "credits": 8.5},
+    {"id": "p_jadeja", "name": "Ravindra Jadeja", "team": "CSK", "role": "AR", "credits": 9.0},
+    {"id": "p_dhoni", "name": "MS Dhoni", "team": "CSK", "role": "WK", "credits": 8.5},
+    {"id": "p_shardul", "name": "Shardul Thakur", "team": "CSK", "role": "BOWL", "credits": 8.0},
+    {"id": "p_deshpande", "name": "Tushar Deshpande", "team": "CSK", "role": "BOWL", "credits": 7.5},
+    {"id": "p_mustafizur", "name": "Mustafizur Rahman", "team": "CSK", "role": "BOWL", "credits": 8.5},
+    {"id": "p_pathirana", "name": "Matheesha Pathirana", "team": "CSK", "role": "BOWL", "credits": 9.0},
 ]
 
 
@@ -290,7 +290,7 @@ SAMPLE_TEAMS = [
     },
     {
         "id": "team_003",
-        "name": "Chennai Dynamos",
+        "name": "CSK Super Kings",
         "user_name": "Ankit",
         "captain": "p_jadeja",
         "vice_captain": "p_pathirana",
@@ -302,7 +302,7 @@ SAMPLE_TEAMS = [
 ]
 
 
-def seed_database() -> None:
+def seed_database(force: bool = False) -> None:
     logger.info("Initializing database schema...")
     Base.metadata.create_all(bind=engine)
 
@@ -310,9 +310,27 @@ def seed_database() -> None:
     try:
         # Check if already seeded
         existing_match = session.query(Match).filter_by(id="match_001").first()
-        if existing_match:
-            logger.info("Database already seeded with sample match_001.")
+        if existing_match and not force:
+            logger.info("Database already seeded with sample match_001. Updating match metadata...")
+            existing_match.name = "MI VS CSK"
+            existing_match.short_name = "MI vs CSK"
+            existing_match.team1 = "MI"
+            existing_match.team2 = "CSK"
+            for p in PLAYERS_DATA:
+                player = Player(**p)
+                session.merge(player)
+            session.commit()
             return
+
+        if force:
+            logger.info("Force flag passed. Re-seeding database...")
+            session.query(ChatMessage).delete()
+            session.query(FantasyTeamPlayer).delete()
+            session.query(FantasyTeam).delete()
+            session.query(Delivery).delete()
+            session.query(Match).delete()
+            session.query(Player).delete()
+            session.commit()
 
         logger.info("Seeding players...")
         for p in PLAYERS_DATA:
@@ -323,10 +341,10 @@ def seed_database() -> None:
         logger.info("Seeding sample match...")
         sample_match = Match(
             id="match_001",
-            name="Mumbai Titans vs Chennai Superstars",
-            short_name="MT vs CS",
-            team1="Mumbai Titans",
-            team2="Chennai Superstars",
+            name="MI VS CSK",
+            short_name="MI vs CSK",
+            team1="MI",
+            team2="CSK",
             venue="Wankhede Stadium, Mumbai",
             status="in_progress",
             current_innings=1,

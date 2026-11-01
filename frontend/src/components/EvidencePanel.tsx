@@ -11,61 +11,61 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({ evidence }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div className="mt-2.5 rounded-lg border border-slate-200/90 bg-slate-50/70 overflow-hidden transition-all text-xs">
+    <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50/80 overflow-hidden transition-all text-sm">
       {/* Prominent Expand/Collapse Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
-        className="w-full flex items-center justify-between px-3 py-2 bg-slate-100/70 hover:bg-slate-100 text-left transition-colors cursor-pointer"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 bg-slate-100/80 hover:bg-slate-200/70 text-left transition-colors cursor-pointer"
       >
-        <div className="flex items-center gap-1.5 font-medium text-slate-700">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+        <div className="flex items-center gap-2 font-semibold text-slate-800 text-xs sm:text-sm">
+          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{evidence.title}</span>
         </div>
-        <div className="flex items-center gap-1 font-semibold text-emerald-700 text-[11px]">
-          <span>{isOpen ? 'Hide the numbers' : 'Show the numbers'}</span>
-          {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        <div className="flex items-center gap-1 font-bold text-emerald-700 text-xs sm:text-sm bg-white px-2 py-0.5 rounded-md border border-slate-200 shadow-2xs">
+          <span>{isOpen ? 'Hide numbers' : 'Show numbers'}</span>
+          {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </div>
       </button>
 
       {/* Collapsed/Expanded Content */}
       {isOpen && (
-        <div className="p-3 border-t border-slate-200/80 space-y-2">
+        <div className="p-3.5 border-t border-slate-200/90 space-y-2.5">
           {evidence.summary && (
-            <p className="text-slate-600 bg-white p-2 rounded border border-slate-200/60 leading-relaxed text-[11px]">
+            <p className="text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200 leading-relaxed text-xs sm:text-sm font-sans">
               {evidence.summary}
             </p>
           )}
 
           {evidence.table_rows && evidence.table_rows.length > 0 && (
-            <div className="overflow-x-auto rounded border border-slate-200 bg-white">
+            <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-2xs">
               <table className="w-full text-left">
-                <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200 text-[10px] uppercase tracking-wider">
+                <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 text-xs uppercase tracking-wider">
                   <tr>
                     {evidence.table_headers.map((h, i) => (
-                      <th key={i} className="py-1.5 px-2.5 whitespace-nowrap">
+                      <th key={i} className="py-2 px-3 whitespace-nowrap">
                         {h}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
+                <tbody className="divide-y divide-slate-100 font-mono text-xs sm:text-sm">
                   {evidence.table_rows.map((row, rIdx) => (
-                    <tr key={rIdx} className="hover:bg-slate-50">
+                    <tr key={rIdx} className="hover:bg-slate-50 transition-colors">
                       {evidence.table_headers.map((colKey, cIdx) => {
                         const val = row[colKey] ?? '-';
                         const isDelta = colKey.toLowerCase().includes('delta');
-                        let textStyle = 'text-slate-700';
+                        let textStyle = 'text-slate-800 font-medium';
 
                         if (isDelta) {
                           const s = String(val);
-                          if (s.startsWith('+')) textStyle = 'text-emerald-700 font-bold';
-                          else if (s.startsWith('-')) textStyle = 'text-red-600 font-bold';
+                          if (s.startsWith('+')) textStyle = 'text-emerald-700 font-black';
+                          else if (s.startsWith('-')) textStyle = 'text-red-600 font-black';
                         }
 
                         return (
-                          <td key={cIdx} className={`py-1.5 px-2.5 whitespace-nowrap ${textStyle}`}>
+                          <td key={cIdx} className={`py-2 px-3 whitespace-nowrap ${textStyle}`}>
                             {String(val)}
                           </td>
                         );
@@ -79,7 +79,7 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({ evidence }) => {
 
           {/* Confidence Note */}
           {evidence.confidence_note && (
-            <div className="text-[10px] text-slate-400 italic text-right pt-0.5">
+            <div className="text-xs text-slate-500 italic text-right pt-0.5">
               {evidence.confidence_note}
             </div>
           )}

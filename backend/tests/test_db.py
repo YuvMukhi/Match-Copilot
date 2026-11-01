@@ -21,10 +21,10 @@ def test_db_session():
 
     match = Match(
         id="match_test",
-        name="Test Match",
-        short_name="TM vs TM2",
-        team1="Mumbai Titans",
-        team2="Chennai Superstars",
+        name="MI VS CSK",
+        short_name="MI vs CSK",
+        team1="MI",
+        team2="CSK",
         venue="Test Venue",
         status="in_progress",
         current_innings=1,

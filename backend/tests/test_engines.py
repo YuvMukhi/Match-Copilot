@@ -167,7 +167,7 @@ def test_projection_ranges_and_ordering(sample_team_players, all_deliveries, sco
 
 def test_projection_dismissed_batter_risk_flag(all_deliveries, scoring_rules):
     # Rohit is dismissed in over 8
-    rohit = {"id": "p_rohit", "name": "Rohit Sharma", "role": "BAT", "team": "Mumbai Titans", "is_captain": True}
+    rohit = {"id": "p_rohit", "name": "Rohit Sharma", "role": "BAT", "team": "MI", "is_captain": True}
     proj_over_10 = project_player_rest_of_match(
         player=rohit, deliveries=all_deliveries, current_over=10, total_overs=20, rules=scoring_rules
     )
